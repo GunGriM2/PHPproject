@@ -34,7 +34,7 @@
             </li>
             <?php if ($user->hasPermissions('admin')): ?>
             <li class="nav-item">
-              <a class="nav-link" href="users/index.html">Управление пользователями</a>
+              <a class="nav-link" href="users/index.php">Управление пользователями</a>
             </li>
             <?php endif; ?>
           </ul>
