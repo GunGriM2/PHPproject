@@ -1,4 +1,4 @@
-<?php 
+<?php
 require_once "init.php";
 
 $user = Database::getInstance()->get('test', ['id', '=', $_GET['id']])->first();
@@ -17,7 +17,7 @@ $user = Database::getInstance()->get('test', ['id', '=', $_GET['id']])->first();
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-  
+
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="index.php">User Management</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

@@ -1,56 +1,56 @@
-<?php 
+<?php
 require_once "init.php";
 
 if (Input::exists()) {
-  if (Token::check(Input::get('token'))) {
-    $validate = new Validate;
+    if (Token::check(Input::get('token'))) {
+        $validate = new Validate;
 
-    $validation = $validate->check($_POST, [
-      'username' => [
-        'required' => true,
-        'min' => 3,
-        'max' => 15,
-      ],
-      'email' => [
-        'required' => true,
-        'email' => true,
-        'unique' => 'test'
-      ],
-      'password' => [
-        'required' => true,
-        'min' => 3
-      ],
-      'password_again' => [
-        'required' => true,
-        'matches' => 'password'
-      ],
-      'rules' => [
-        'required' => true
-      ]
-    ]);
+        $validation = $validate->check($_POST, [
+            'username' => [
+                'required' => true,
+                'min' => 3,
+                'max' => 15,
+            ],
+            'email' => [
+                'required' => true,
+                'email' => true,
+                'unique' => 'test',
+            ],
+            'password' => [
+                'required' => true,
+                'min' => 3,
+            ],
+            'password_again' => [
+                'required' => true,
+                'matches' => 'password',
+            ],
+            'rules' => [
+                'required' => true,
+            ],
+        ]);
 
-    if ($validation->passed()) {
-      $user = new User();
+        if ($validation->passed()) {
+            $user = new User();
 
-      $user->create([
-        'username' => Input::get('username'),
-        'email' => Input::get('email'),
-        'password' => password_hash(Input::get('password'), PASSWORD_DEFAULT),
-        'register_date' => date('d/m/Y')
-      ]);
+            $user->create([
+                'username' => Input::get('username'),
+                'email' => Input::get('email'),
+                'password' => password_hash(Input::get('password'), PASSWORD_DEFAULT),
+                'register_date' => date('d/m/Y'),
+            ]);
 
-      Session::flash('success', 'You are successfully registered');
-      Redirect::to('login.php');
-    } else {
-      $danger = '';
-      foreach ($validation->errors() as $error) {
-        $danger .= '<li>'. $error .'</li> ' . ' <br>';
-      }
-      $danger = rtrim($danger, "<br>");
-      Session::flash('danger', $danger);
+            Session::flash('success', 'You are successfully registered');
+            Redirect::to('login.php');
+        } else {
+            $danger = '';
+            foreach ($validation->errors() as $error) {
+                $danger .= '<li>' . $error . '</li> ' . ' <br>';
+            }
+            $danger = rtrim($danger, "<br>");
+            Session::flash('danger', $danger);
+        }
+
     }
-
-  }
 }
 ?>
 <!doctype html>
@@ -59,7 +59,7 @@ if (Input::exists()) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Register</title>
-	
+
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <!-- Bootstrap core CSS -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -78,19 +78,19 @@ if (Input::exists()) {
               <?php echo Session::flash('danger'); ?>
             </ul>
           </div>
-        <?php endif; ?>
+        <?php endif;?>
 
         <?php if (Session::exists('success')): ?>
           <div class="alert alert-success">
             <?php echo Session::flash('success'); ?>
           </div>
-        <?php endif; ?>
+        <?php endif;?>
 
         <?php if (Session::exists('info')): ?>
           <div class="alert alert-info">
             <?php echo Session::flash('info'); ?>
           </div>
-        <?php endif; ?>
+        <?php endif;?>
 
     	  <div class="form-group">
           <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="<?php echo Input::get('email'); ?>">
@@ -101,7 +101,7 @@ if (Input::exists()) {
         <div class="form-group">
           <input type="password" class="form-control" id="password" name="password" placeholder="Пароль">
         </div>
-        
+
         <div class="form-group">
           <input type="password" class="form-control" id="password" name="password_again" placeholder="Повторите пароль">
         </div>
